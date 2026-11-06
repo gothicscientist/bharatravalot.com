@@ -36,8 +36,6 @@ export const person = {
   name: 'Bharat Ravalot',
   legalName: 'Bharat Bhati',
   clan: 'Ravalot',
-  home: 'Jaisalmer',
-  devanagari: 'भरत',
   tagline: 'Economics and Data Science at UC Berkeley. I build products, studios and the occasional world.',
   email: 'bharatbhati@berkeley.edu',
   phone: '770-310-8059',
@@ -276,28 +274,4 @@ export const skills: { label: string; items: string[] }[] = [
   { label: 'Code and tools', items: ['Python', 'SQL', 'TypeScript', 'Luau', 'Roblox Studio', 'Blender', 'Funnel and cohort analysis'] },
   { label: 'AI', items: ['LLM evaluation', 'Prompt engineering', 'Agent workflows', 'OpenAI Agents SDK', 'Claude Code', 'Codex'] },
   { label: 'Product and growth', items: ['User research', 'Product specs', 'Roadmaps', 'Sales and marketing', 'Game design', 'Playtesting'] },
-];
-
-/** Stations along the journey, west from dawn to night. `x` is set in the world layout. */
-export interface Station {
-  id: string;
-  entry: string;
-  place: string; // English place name shown in the world
-  placeLocal: string; // Devanagari
-  time: string; // shown in the sun-path HUD
-}
-
-export const stations: Station[] = [
-  { id: 'dunes', entry: 'intro', place: 'The Thar before dawn', placeLocal: 'थार', time: 'Before dawn' },
-  { id: 'fort', entry: 'about', place: 'The golden fort', placeLocal: 'सोनार किलो', time: 'Sunrise' },
-  { id: 'workshop', entry: 'radiant', place: 'The stone carvers\' yard', placeLocal: 'कारखानो', time: 'Morning' },
-  { id: 'bazaar', entry: 'pilego', place: 'The dyers\' bazaar', placeLocal: 'बजार', time: 'Morning' },
-  { id: 'haveli', entry: 'thock', place: 'The merchants\' havelis', placeLocal: 'हवेली', time: 'Late morning' },
-  { id: 'stepwell', entry: 'strata', place: 'The stepwell', placeLocal: 'बावड़ी', time: 'Noon' },
-  { id: 'archery', entry: 'rally', place: 'The archery ground', placeLocal: 'चांदमारी', time: 'Early afternoon' },
-  { id: 'greatdunes', entry: 'speed', place: 'The great dunes', placeLocal: 'धोरा', time: 'Afternoon' },
-  { id: 'serai', entry: 'agora', place: 'The caravanserai', placeLocal: 'सराय', time: 'Golden hour' },
-  { id: 'chhatris', entry: 'marwari', place: 'The royal cenotaphs', placeLocal: 'छतरियां', time: 'Sunset' },
-  { id: 'observatory', entry: 'education', place: 'The observatory', placeLocal: 'जंतर मंतर', time: 'Night' },
-  { id: 'camp', entry: 'contact', place: 'The last fire', placeLocal: 'धूणी', time: 'Night' },
 ];

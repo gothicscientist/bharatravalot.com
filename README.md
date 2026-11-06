@@ -1,14 +1,14 @@
 # Bharat Ravalot's portfolio
 
-**A personal portfolio you can explore as a walk across the Thar Desert near Jaisalmer, or browse as a quick project index.**
+**A personal portfolio you can explore as a 3D voxel labyrinth hidden under the desert, or browse as a quick project index.**
 
 [Preview](#preview) · [Run locally](#run-locally) · [How it works](#how-it-works) · [Design notes](DESIGN.md)
 
 ## Preview
 
-![A rendered still of the portfolio's sandstone fort and desert landscape](public/media/still-fort.webp)
+![A rendered still of the palace courtyard at the end of the labyrinth](public/media/still.webp)
 
-- **The journey (`/`).** Walk west from before dawn to the last campfire. Twelve stops present projects and experience. The browser draws the 2.5D world and synthesizes its sound.
+- **The labyrinth (`/`).** Climb down from the dunes and find your way through twelve chambers, each holding a project or a piece of experience, to a palace courtyard at dusk. The browser builds the voxel world and synthesizes its sound.
 - **The quick view (`/work/`).** Browse the same material on a single page. It works without JavaScript, prints cleanly, and serves as the fallback for browsers without WebGL 2.
 
 | Project | What to explore |
@@ -29,25 +29,27 @@ npm run build     # type-checks, then builds to dist/
 npm run preview
 ```
 
-Open [the journey](http://localhost:5173/) or [the quick view](http://localhost:5173/work/) after starting Vite.
+Open [the labyrinth](http://localhost:5173/) or [the quick view](http://localhost:5173/work/) after starting Vite.
 
 ## How it works
 
-- **One source for both views.** The project index is rendered at build time from the same TypeScript content the journey uses.
-- **Procedural scene and sound.** WebGL 2 lights flat geometry using 3D normals. The traveller's position drives the changing sky and palette, and Web Audio synthesizes the ambience.
+- **One source for both views.** The project index is rendered at build time from the same TypeScript content the labyrinth uses.
+- **Procedural voxels.** The whole labyrinth is a 256 x 64 x 256 voxel grid built in code at load, meshed into chunks with baked ambient occlusion and 16px pixel textures, then lit by three.js with sun shadows, torch lights, bloom and fog. The sun sinks as you get further along the route.
+- **Procedural sound.** Web Audio synthesizes the wind, the drone, footsteps and fire.
 
 ## Where things live
 
 
 | Path | What it is |
 | --- | --- |
-| `src/content.ts` | Every fact on the site, and the list of places. Edit words here only. |
-| `src/world/layout.ts` | Terrain, layers and what stands at each place |
-| `src/world/art/` | Architecture, nature and people, built from lit vector shapes |
-| `src/world/palette.ts` | The colour of the day, keyed to how far west you are |
-| `src/world/shaders.ts`, `src/world/renderer.ts` | WebGL 2 lighting, sky, bloom, light shafts and grading |
-| `src/world/traveller.ts` | The traveller's walk, run, jump, sit and cloth |
-| `src/world/audio.ts` | Synthesised wind, tanpura, footsteps and fire |
+| `src/content.ts` | Every fact on the site. Edit words here only. |
+| `src/game/build.ts` | The labyrinth: corridors, chambers and everything in them |
+| `src/game/voxels.ts` | Voxel materials and the chunk mesher |
+| `src/game/atlas.ts` | The 16px pixel textures, drawn in code |
+| `src/game/main.ts` | Renderer, light, time of day, camera, wall cutaway, input and props |
+| `src/game/hero.ts` | The wanderer's movement, collision and scarf |
+| `src/game/ui.ts` | Intro, chamber cards, the chambers map and touch controls |
+| `src/game/audio.ts` | Synthesised wind, drone, footsteps and fire |
 | `src/work/render.ts` | The quick view's HTML, rendered at build time |
 | `DESIGN.md` | Art direction and the decisions behind it |
 
@@ -57,4 +59,4 @@ The [deployment workflow](.github/workflows/deploy.yml) builds on pushes to `mai
 
 ## Stills
 
-`?still=<x>` renders a clean frame of the journey at world position `x` with no interface (optional `vh`, `dx`, `dy` adjust the camera). The hero image and `og.jpg` are captured this way.
+`/?still&x=<x>&z=<z>` renders a clean frame with the wanderer at that spot and no interface. `p` sets the time of day along the route (0 to 1), and `yaw`, `pitch`, `dist` and `fog` adjust the camera. The hero image and `og.jpg` are captured this way.
