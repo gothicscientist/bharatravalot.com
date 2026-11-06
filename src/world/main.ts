@@ -218,7 +218,7 @@ export function start() {
     const look = trav.dir * 140 * (0.4 + trav.speed01);
     camX += (trav.x + look - camX) * (1 - Math.exp(-dt * 2.4));
     const viewH = (stillVH || piecewise(camX, SX, STATION_VIEW)) * (innerWidth < innerHeight ? 1.25 : 1);
-    const desiredY = Math.max(trav.y, world.height(camX)) + viewH * 0.2 + stillDY;
+    const desiredY = Math.max(trav.y, world.height(camX)) + viewH * (innerWidth < innerHeight ? 0.04 : 0.2) + stillDY;
     camY += (desiredY - camY) * (1 - Math.exp(-dt * 2.2));
 
     const tDay = piecewise(camX, SX, STATION_T);

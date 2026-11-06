@@ -305,31 +305,34 @@ export function house(m: Mesh, x: number, y: number, w: number, h: number, color
 }
 
 /** Stepped pyramid of stairs: the repeating module of a stepwell wall. */
-export function stairModule(m: Mesh, x: number, y: number, w: number, h: number, steps: number, color: V3) {
+export function stairModule(m: Mesh, x: number, y: number, w: number, h: number, steps: number, color: V3, riser = 0.25, ao = 0.85) {
   const sw = w / 2 / steps, sh = h / steps;
   for (let i = 0; i < steps; i++) {
     const x0 = x + i * sw, x1 = x + w - i * sw;
     const yy = y + i * sh;
     // tread (lit, faces up) and riser (front, darker)
-    m.quad(x0, yy + sh * 0.7, x1, yy + sh * 0.7, x1 - sw, yy + sh, x0 + sw, yy + sh, plain(color, { n: UP }));
-    m.rect(x0, yy, x1 - x0, sh * 0.7, plain(mix3(color, RECESS, 0.25), { ao: 0.85 }));
+    m.quad(x0, yy + sh * 0.7, x1, yy + sh * 0.7, x1 - sw, yy + sh, x0 + sw, yy + sh, plain(color, { n: UP, ao: Math.min(1, ao + 0.15) }));
+    m.rect(x0, yy, x1 - x0, sh * 0.7, plain(mix3(color, RECESS, riser), { ao }));
   }
 }
 
 /** Back wall of a stepwell: levels of interlocking stair flights. */
 export function stepwellWall(m: Mesh, x: number, top: number, w: number, depth: number, color: V3) {
-  m.rect(x, top - depth, w, depth, plain(mix3(color, RECESS, 0.55), { ao: 0.8 }));
+  m.rect(x, top - depth, w, depth, plain(mix3(color, RECESS, 0.72), { ao: 0.6 }));
   const rows = Math.floor(depth / 26);
   for (let r = 0; r < rows; r++) {
     const yy = top - depth + r * 26 + 2;
+    const u = r / Math.max(1, rows - 1); // 0 at the water, 1 at the rim
+    const ao = 0.45 + 0.5 * u; // the pit darkens as it descends
     // ledge
-    m.quad(x, yy + 22, x + w, yy + 22, x + w, yy + 24, x, yy + 24, plain(color, { n: UP }));
+    m.quad(x, yy + 22, x + w, yy + 22, x + w, yy + 24, x, yy + 24, plain(color, { n: UP, ao: Math.min(1, ao + 0.2) }));
+    m.rect(x, yy + 20, w, 2, plain(mix3(color, RECESS, 0.6), { ao }));
     const mw = 52;
     const off = r % 2 === 0 ? 0 : mw / 2;
     for (let xx = x - mw + off; xx < x + w; xx += mw) {
       const a = Math.max(x, xx), b = Math.min(x + w, xx + mw);
       if (b - a < mw * 0.98) continue;
-      stairModule(m, a + 2, yy, mw - 4, 22, 5, color);
+      stairModule(m, a + 2, yy, mw - 4, 22, 5, color, 0.48, ao);
     }
   }
 }

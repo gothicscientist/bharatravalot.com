@@ -213,11 +213,19 @@ button { font: inherit; color: inherit; }
 
 /* ---------------- small screens ---------------- */
 @media (max-width: 720px) {
-  #card { top: auto; bottom: 150px; left: 16px; }
+  #card { top: auto; bottom: 128px; left: 16px; }
+  #card::before {
+    content: ''; position: fixed; left: 0; right: 0; bottom: 0; height: 58vh; z-index: -1; pointer-events: none;
+    background: linear-gradient(to top, rgba(246, 234, 212, 0.94) 0%, rgba(246, 234, 212, 0.86) 52%, rgba(246, 234, 212, 0) 100%);
+    opacity: 0; transition: opacity 0.8s var(--ease), background 1.2s;
+  }
+  #card.show::before { opacity: 1; }
+  .night #card::before { background: linear-gradient(to top, rgba(8, 10, 28, 0.9) 0%, rgba(8, 10, 28, 0.78) 52%, rgba(8, 10, 28, 0) 100%); }
+  #card .t-title, #card .t-hero, #card .t-line { text-shadow: none; }
   .t-hero { font-size: clamp(48px, 15vw, 72px); }
   .t-title { font-size: clamp(36px, 11vw, 52px); }
   .t-line { font-size: 18px; margin-bottom: 14px; }
-  #sunpath { width: min(360px, 74vw); right: 12px; left: auto; transform: none; }
+  #sunpath { width: min(360px, calc(100vw - 168px)); right: 12px; left: auto; transform: none; }
   #place { bottom: 18px; }
   .pl-local { font-size: 20px; }
   .pl-en { font-size: 14px; }
@@ -226,6 +234,17 @@ button { font: inherit; color: inherit; }
 @media (max-width: 720px) and (max-height: 640px) {
   #card { bottom: 120px; }
   .t-line { display: none; }
+}
+@media (max-height: 520px) and (min-width: 600px) {
+  #card { top: 64px; bottom: auto; width: min(400px, 50vw); }
+  #card::before { display: none; }
+  .t-hero { font-size: 46px; margin-bottom: 8px; }
+  .t-title { font-size: 34px; margin-bottom: 6px; }
+  .t-meta { margin-bottom: 8px; }
+  .t-line { font-size: 15px; margin-bottom: 10px; }
+  .t-actions .read, .t-actions a { padding: 7px 14px; font-size: 13px; }
+  #place { display: none; }
+  #sunpath { width: 220px; left: auto; right: 16px; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.01ms !important; animation: none !important; }

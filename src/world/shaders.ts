@@ -114,7 +114,7 @@ void main(){
   col *= uDarken;
   float haze = clamp(uFog, 0.0, 1.0);
   // low ground haze thickens toward the horizon of each layer
-  haze = max(haze, clamp(exp(-(vWorld.y - uHazeY) * 0.012) * uFog * 1.1, 0.0, 0.7));
+  haze = max(haze, clamp(exp(-(vWorld.y - uHazeY) * 0.012) * uFog * 1.1, 0.0, min(0.7, uFog * 1.5)));
   col = mix(col, uFogCol, haze);
   o = vec4(col, 0.0);
 }`;

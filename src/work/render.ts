@@ -91,7 +91,7 @@ export function renderWork() {
     <a href="/" aria-label="Enter the journey">
       <picture>
         <source media="(max-width: 700px)" srcset="/media/still-fort-m.webp">
-        <img src="/media/still-fort.webp" alt="The golden fort of Jaisalmer at sunrise, with a traveller in a saffron turban walking west" width="2400" height="1029">
+        <img src="/media/still-fort.webp" alt="The royal cenotaphs outside Jaisalmer at sunset, with a traveller in a saffron turban walking west" width="2400" height="1029">
       </picture>
     </a>
     <figcaption>This site is also a walk across the Thar, from before dawn to the last fire. <a href="/">Enter it</a> when you have five minutes.</figcaption>

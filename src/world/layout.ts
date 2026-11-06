@@ -262,11 +262,6 @@ export function buildWorld(): World {
       const wx = x / fg.par;
       const gy = height(wx) - 70 - r() * 60;
       if (r() > 0.25) grass(m, x, gy - 40, 70 + r() * 70, Math.floor(r() * 1e5), hex('#8a7448'));
-      else if (r() > 0.5) {
-        const bw = 30 + r() * 50;
-        blob(m, x, gy - 70, bw, bw * 0.5, { color: hex('#6a4a30'), mat: MAT.stone }, Math.floor(r() * 1e5));
-        blob(m, x + bw * 0.7, gy - 76, bw * 0.55, bw * 0.3, { color: hex('#5a3e28'), mat: MAT.stone }, Math.floor(r() * 1e5));
-      }
     }
     // a framing khejri at the very start, and a carved pillar in the town
     m.at(START_X * fg.par - 380, height(START_X) - 140, 1.5, () => khejri(m, 0, 0, 260, 7, { sway: 0.8 }));
